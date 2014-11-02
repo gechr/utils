@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+	echo "usage: git date-diff [<options>] <from> [<to>]"
+	exit 1
+fi
+
+for arg in "$@"; do
+	if [[ $arg =~ ^--?.+$ ]]; then
+		options+=("$arg")
+	elif [[ -z $from ]]; then
+		from="$arg"
+	elif [[ -z $to ]]; then
+		to="$arg"
+	fi
+done
+
+revisions="$(git rev-list --since="$from" --until="${to:-HEAD}" HEAD)"
+
+to=$(echo "$revisions" | head -n 1)
+from=$(echo "$revisions" | tail -n 1)
+
+git diff "${options[@]}" $from $to
+
