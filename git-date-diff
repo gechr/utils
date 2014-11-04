@@ -15,10 +15,10 @@ for arg in "$@"; do
 	fi
 done
 
-revisions="$(git rev-list --since="$from" --until="${to:-HEAD}" HEAD)"
+revisions=($(git rev-list --since="$from" --until="${to:-HEAD}" HEAD))
 
-to=$(echo "$revisions" | head -n 1)
-from=$(echo "$revisions" | tail -n 1)
+to=${revisions[0]}
+from=${revisions[@]:(-1)}
 
 git diff "${options[@]}" $from $to
 
