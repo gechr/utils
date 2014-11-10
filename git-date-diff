@@ -21,4 +21,3 @@ to=${revisions[0]}
 from=${revisions[@]:(-1)}
 
 git diff "${options[@]}" $from $to
-
