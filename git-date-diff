@@ -17,12 +17,11 @@ done
 
 revisions=($(git rev-list --since="$from" --until="${to:-HEAD}" HEAD))
 total=${#revisions[@]}
+from=${revisions[@]:(-1)}
 
 if [[ $total == 1 ]]; then
-	from=${revisions[@]:(-1)}
 	to="$from^"
 else
-	from=${revisions[@]:(-1)}
 	to="${revisions[0]}"
 fi
 
