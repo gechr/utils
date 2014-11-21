@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [[ -z "$1" ]]; then
+	echo "usage: git date-difftool [<options>] <from> [<to>]"
+	exit 1
+fi
+
+for arg in "$@"; do
+	if [[ $arg =~ ^--?.+$ ]]; then
+		options+=("$arg")
+	elif [[ -z $from ]]; then
+		from="$arg"
+	elif [[ -z $to ]]; then
+		to="$arg"
+	fi
+done
+
+revisions=($(git rev-list --since="$from" --until="${to:-HEAD}" HEAD))
+total=${#revisions[@]}
+from=${revisions[@]:(-1)}
+
+if [[ $total == 1 ]]; then
+	to="$from^"
+else
+	to="${revisions[0]}"
+fi
+
+git difftool "${options[@]}" $from $to
