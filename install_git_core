@@ -24,7 +24,7 @@ info "Extracting git-${version}.tar.gz"
 tar zxvf git-${version}.tar.gz
 info "Configuring git-${version}"
 cd git-${version}
-./configure
+./configure --prefix=/usr --with-gitconfig=/etc/gitconfig
 info "Making git-${version}"
 make
 info "Installing git-${version}"
