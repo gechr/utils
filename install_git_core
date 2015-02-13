@@ -29,6 +29,8 @@ info "Making git-${version}"
 make
 info "Installing git-${version}"
 sudo make install
+# Bash completion
+sudo cp contrib/completion/git-completion.bash /etc/bash_completion.d/git
 # Man pages
 info "Downloading git-manpages-${version}.tar.gz"
 curl -sS -O "https://www.kernel.org/pub/software/scm/git/git-manpages-${version}.tar.gz"
