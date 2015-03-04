@@ -12,6 +12,9 @@ function info() {
 
 version=$1
 
+# Enable `git grep -P`
+export USE_LIBPCRE=yes
+
 # Create temp dir to work in
 info "Creating temporary directory"
 tmp_dir="$(mktemp -d)"
