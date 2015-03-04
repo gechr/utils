@@ -7,7 +7,7 @@ fi
 
 function info() {
     echo
-    echo -e "\033[34;1m# \033[31;1m$@\033[0m"
+    echo -e "\033[34;1m# \033[31;1m$*\033[0m"
 }
 
 version=$1
@@ -21,9 +21,9 @@ echo "$tmp_dir"
 info "Downloading git-${version}.tar.gz"
 curl -sS -O "https://www.kernel.org/pub/software/scm/git/git-${version}.tar.gz"
 info "Extracting git-${version}.tar.gz"
-tar zxvf git-${version}.tar.gz
+tar zxvf "git-${version}.tar.gz"
 info "Configuring git-${version}"
-cd git-${version}
+cd "git-${version}"
 ./configure --prefix=/usr --with-gitconfig=/etc/gitconfig
 info "Making git-${version}"
 make
@@ -36,7 +36,7 @@ info "Downloading git-manpages-${version}.tar.gz"
 curl -sS -O "https://www.kernel.org/pub/software/scm/git/git-manpages-${version}.tar.gz"
 info "Extracting git-manpages-${version}.tar.gz"
 sudo mkdir -p /usr/local/share/man
-sudo tar zxvf git-manpages-${version}.tar.gz -C /usr/local/share/man
+sudo tar zxvf "git-manpages-${version}.tar.gz" -C /usr/local/share/man
 info "Done"
 
 echo
