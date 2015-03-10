@@ -40,7 +40,7 @@ curl -sS -O "https://www.kernel.org/pub/software/scm/git/git-manpages-${version}
 info "Extracting git-manpages-${version}.tar.gz"
 sudo mkdir -p /usr/local/share/man
 sudo tar zxvf "git-manpages-${version}.tar.gz" -C /usr/local/share/man
-sudo chmod -R 755 /usr/local/share/man
+sudo chmod -R 755 /usr/local/share/man /etc/bash_completion.d
 info "Done"
 
 echo
