@@ -15,7 +15,7 @@ for arg in "$@"; do
 	fi
 done
 
-revisions=($(git rev-list --since="$from" --until="${to:-HEAD}" HEAD))
+revisions=($(git rev-list --no-merges --since="$from" --until="${to:-HEAD}" HEAD))
 total=${#revisions[@]}
 from=${revisions[@]:(-1)}
 
