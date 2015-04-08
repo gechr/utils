@@ -16,11 +16,12 @@ for arg in "$@"; do
 done
 
 revisions=($(git rev-list --no-merges --since="$from" --until="${to:-HEAD}" HEAD))
-total=${#revisions[@]}
-from=${revisions[@]:(-1)}
+total=${#revisions[*]}
+from=${revisions[*]:(-1)}
 
 if [[ $total == 1 ]]; then
-	to="$from^"
+	to="$from"
+	from="$to^"
 else
 	to="${revisions[0]}"
 fi
