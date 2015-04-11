@@ -381,6 +381,17 @@ __git_ps1 ()
 	local inside_gitdir="${repo_info##*$'\n'}"
 	local g="${repo_info%$'\n'*}"
 
+	if [ "true" = "$inside_worktree" ] &&
+	   [ -n "${GIT_PS1_HIDE_IF_PWD_IGNORED-}" ] &&
+	   [ "$(git config --bool bash.hideIfPwdIgnored)" != "false" ] &&
+	   git check-ignore -q .
+	then
+		return $exit
+	fi
+
+	local disable_extended_prompt="$(git config --bool bash.disableExtendedPrompt)"
+
+	local c_blue='\[\e[1;94m\]'
 	local c_purple='\[\e[1;95m\]'
 	local c_green='\[\e[1;92m\]'
 	local c_orange='\[\e[1;38;5;208m\]'
@@ -465,6 +476,7 @@ __git_ps1 ()
 	local u=""
 	local c=""
 	local p=""
+	local e=""
 
 	if [ "true" = "$inside_gitdir" ]; then
 		if [ "true" = "$bare_repo" ]; then
@@ -472,7 +484,9 @@ __git_ps1 ()
 		else
 			b="GIT_DIR!"
 		fi
-	elif [ "true" = "$inside_worktree" ]; then
+	elif [ "$disable_extended_prompt" != "true" ] &&
+		 [ "true" = "$inside_worktree" ]
+	then
 		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] &&
 		   [ "$(git config --bool bash.showDirtyState)" != "false" ]
 		then
@@ -491,7 +505,7 @@ __git_ps1 ()
 
 		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ] &&
 		   [ "$(git config --bool bash.showUntrackedFiles)" != "false" ] &&
-		   git ls-files --others --exclude-standard --error-unmatch -- '*' >/dev/null 2>/dev/null
+		   git ls-files --others --exclude-standard --error-unmatch -- ':/*' >/dev/null 2>/dev/null
 		then
 			u="%${ZSH_VERSION+%}"
 		fi
@@ -499,6 +513,8 @@ __git_ps1 ()
 		if [ -n "${GIT_PS1_SHOWUPSTREAM-}" ]; then
 			__git_ps1_show_upstream
 		fi
+	else
+		e=" $c_blue!$c_clear"
 	fi
 
 	local z="${GIT_PS1_STATESEPARATOR-" "}"
@@ -515,7 +531,7 @@ __git_ps1 ()
 	fi
 
 	local f="$w$i$s$u"
-	local gitstring="$c$b${f:+$z$f}$r$p"
+	local gitstring="$c$b$e${f:+$z$f}$r$p"
 
 	if [ $pcmode = yes ]; then
 		if [ "${__git_printf_supports_v-}" != yes ]; then
