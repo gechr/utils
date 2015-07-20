@@ -66,6 +66,10 @@
 #     git           always compare HEAD to @{upstream}
 #     svn           always compare HEAD to your SVN upstream
 #
+# You can change the separator between the branch name and the above
+# state symbols by setting GIT_PS1_STATESEPARATOR. The default separator
+# is SP.
+#
 # By default, __git_ps1 will compare HEAD to your SVN upstream if it can
 # find one, or @{upstream} otherwise.  Once you have set
 # GIT_PS1_SHOWUPSTREAM, you can override it on a per-repository basis by
@@ -79,6 +83,11 @@
 #     branch        relative to newer tag or branch (master~4)
 #     describe      relative to older annotated tag (v1.6.3.1-13-gdd42c2f)
 #     default       exactly matching tag
+#
+# If you would like to disable all of the above extended prompt information
+# (i.e. display branch information only) on a per-repository basis, you can
+# set bash.disableExtendedPrompt to "true". This can greatly increase prompt
+# responsiveness when browsing repositories stored on a Network File System.
 #
 # If you would like a colored hint about the current dirty state, set
 # GIT_PS1_SHOWCOLORHINTS to a nonempty value. The colors are based on
