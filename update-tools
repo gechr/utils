@@ -1,0 +1,27 @@
+#!/bin/bash
+
+function update_file() {
+    local url="$1"
+    local outfile="$2"
+    local sha1_pre sha1_post
+
+    [ -f "$outfile" ] && sha1_pre="$(sha1sum "$outfile" | cut -d ' ' -f1)"
+    curl -sSL -o "$outfile" "$url"
+    sha1_post="$(sha1sum "$outfile" | cut -d ' ' -f1)"
+    [ "$sha1_pre" != "$sha1_post" ] && echo -e "\e[32;1mUpdated:\e[0m $outfile\n"
+}
+
+# Sublime Shell Syntax
+update_file https://raw.githubusercontent.com/jfcherng/Packages/fix-shell/ShellScript/Shell-Unix-Generic.sublime-syntax \
+            "$HOME/.config/sublime-text-3/Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
+
+# Git Rebaser
+update_file https://gist.githubusercontent.com/koreno/5893d2d969ccb6b8341d/raw/11d41249222adfc244957192142d6f6579bbc445/rebaser.py \
+            "$HOME/bin/rebaser.py"
+chmod +x "$_"
+
+# Shellcheck
+cabal update && cabal install shellcheck
+
+# Neovim
+sudo apt-get --only-upgrade -y install neovim
