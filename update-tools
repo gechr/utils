@@ -16,7 +16,7 @@ update_file https://raw.githubusercontent.com/jfcherng/Packages/fix-shell/ShellS
             "$HOME/.config/sublime-text-3/Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
 
 # Git Rebaser
-update_file https://gist.githubusercontent.com/koreno/5893d2d969ccb6b8341d/raw/11d41249222adfc244957192142d6f6579bbc445/rebaser.py \
+update_file https://gist.githubusercontent.com/koreno/5893d2d969ccb6b8341d/raw/rebaser.py \
             "$HOME/bin/rebaser.py"
 chmod +x "$_"
 
