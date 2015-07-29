@@ -1,5 +1,10 @@
 #!/bin/bash
 
+function update_git_repo() {
+    local repo="$1"
+    git -C "$repo" pull
+}
+
 function update_file() {
     local url="$1"
     local outfile="$2"
@@ -27,8 +32,11 @@ update_file http://stedolan.github.io/jq/download/linux64/jq \
             "$HOME/bin/jq" \
             755
 
-# Shellcheck
-cabal update && cabal install shellcheck &
+# Font "bront"
+update_git_repo "$HOME/.fonts/bront"
 
 # Neovim
 sudo apt-get --only-upgrade -y install neovim &
+
+# Shellcheck
+nohup cabal update && cabal install shellcheck
