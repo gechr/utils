@@ -1,16 +1,22 @@
 #!/bin/bash -e
 
-if [[ -z $1 ]]; then
-    echo "Must supply Git version to install (e.g. 2.3.1)"
-    exit 1
-fi
-
 function info() {
     echo
     echo -e "\033[34;1m# \033[31;1m$*\033[0m"
 }
 
 version=$1
+
+if [ -z "$version" ]; then
+    local_version="v$(git --version | grep -Eo '[0-9.]+')"
+    remote_version="$(git ls-remote git://git.kernel.org/pub/scm/git/git.git | grep -v '\-rc' | grep -Eo 'v[0-9.]+' | uniq | tail -n 1)"
+    if [ "$local_version" = "$remote_version" ]; then
+        echo "You already have the latest git version: $local_version"
+        exit
+    fi
+    version="${remote_version/v/}"
+    info "Auto-upgrading to the latest git version: ${remote_version}"
+fi
 
 # Enable `git grep -P`
 export USE_LIBPCRE=yes
