@@ -6,9 +6,7 @@ function update_git_repo() {
 }
 
 function update_file() {
-    local url="$1"
-    local outfile="$2"
-    local perms="${3:-644}"
+    local url="$1" outfile="$2" perms="${3:-644}"
     local sha1_pre sha1_post
 
     [ -f "$outfile" ] && sha1_pre="$(sha1sum "$outfile")"
