@@ -11,9 +11,9 @@ function update_file() {
     local perms="${3:-644}"
     local sha1_pre sha1_post
 
-    [ -f "$outfile" ] && sha1_pre="$(sha1sum "$outfile" | cut -d ' ' -f1)"
+    [ -f "$outfile" ] && sha1_pre="$(sha1sum "$outfile")"
     curl -sSL -o "$outfile" "$url"
-    sha1_post="$(sha1sum "$outfile" | cut -d ' ' -f1)"
+    sha1_post="$(sha1sum "$outfile")"
     [ "$sha1_pre" != "$sha1_post" ] && echo -e "\e[32;1mUpdated:\e[0m $outfile\n"
     chmod "$perms" "$outfile"
 }
