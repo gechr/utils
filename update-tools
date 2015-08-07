@@ -25,6 +25,9 @@ update_file https://gist.githubusercontent.com/koreno/5893d2d969ccb6b8341d/raw/r
             "$HOME/bin/rebaser.py" \
             755
 
+# Rubygems
+sudo gem update &
+
 # jq
 update_file http://stedolan.github.io/jq/download/linux64/jq \
             "$HOME/bin/jq" \
