@@ -16,6 +16,9 @@ function update_file() {
     chmod "$perms" "$outfile"
 }
 
+# Prompt for sudo password before doing anything
+sudo -v
+
 # Sublime Shell Syntax
 update_file https://raw.githubusercontent.com/jfcherng/Packages/fix-shell/ShellScript/Shell-Unix-Generic.sublime-syntax \
             "$HOME/.config/sublime-text-3/Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
