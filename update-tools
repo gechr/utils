@@ -32,9 +32,9 @@ update_file https://gist.githubusercontent.com/koreno/5893d2d969ccb6b8341d/raw/r
 sudo gem update &
 
 # jq
-update_file http://stedolan.github.io/jq/download/linux64/jq \
-            "$HOME/bin/jq" \
-            755
+# update_file http://stedolan.github.io/jq/download/linux64/jq \
+#             "$HOME/bin/jq" \
+#             755
 
 # Font "bront"
 update_git_repo "$HOME/.fonts/bront"
