@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 function update_git_repo() {
     local repo="$1"
     git -C "$repo" pull
@@ -38,6 +40,14 @@ sudo gem update &
 
 # Font "bront"
 update_git_repo "$HOME/.fonts/bront"
+
+# moreutils
+MOREUTILS_DIR=/space/tools/moreutils
+update_git_repo "/space/tools/moreutils"
+if [ $? -ne 0 ]; then
+    cd "$MOREUTILS_DIR"
+    make && sudo make install
+fi
 
 # Neovim
 sudo apt-get --only-upgrade -y install neovim &
