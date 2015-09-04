@@ -41,6 +41,11 @@ sudo gem update &
 # Font "bront"
 update_git_repo "$HOME/.fonts/bront"
 
+# TMUX Plugin Manager
+for plugin in ~/.tmux/plugins/*; do
+    update_git_repo "$plugin"
+done
+
 # moreutils
 MOREUTILS_DIR=/space/tools/moreutils
 update_git_repo "/space/tools/moreutils"
