@@ -4,7 +4,8 @@ set -e
 
 function update_git_repo() {
     local repo="$1"
-    git -C "$repo" pull
+    git -C "$repo" pull -q
+    [ "$?" != 0 ] && echo -e "\e[32;1mUpdated:\e[0m $repo\n"
 }
 
 function update_file() {
