@@ -22,15 +22,6 @@ function update_file() {
 # Prompt for sudo password before doing anything
 sudo -v
 
-# Sublime Shell Syntax
-update_file https://raw.githubusercontent.com/jfcherng/Packages/fix-shell/ShellScript/Shell-Unix-Generic.sublime-syntax \
-            "$HOME/.config/sublime-text-3/Packages/ShellScript/Shell-Unix-Generic.sublime-syntax"
-
-# Git Rebaser
-update_file https://gist.githubusercontent.com/koreno/5893d2d969ccb6b8341d/raw/rebaser.py \
-            "$HOME/bin/rebaser.py" \
-            755
-
 # Rubygems
 sudo gem update &
 
@@ -38,6 +29,10 @@ sudo gem update &
 # update_file http://stedolan.github.io/jq/download/linux64/jq \
 #             "$HOME/bin/jq" \
 #             755
+
+# Fuzzy Finder
+update_git_repo "$HOME/.fzf"
+~/.fzf/install
 
 # Font "bront"
 update_git_repo "$HOME/.fonts/bront"
