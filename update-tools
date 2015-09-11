@@ -3,9 +3,11 @@
 set -e
 
 function update_git_repo() {
-    local repo="$1"
+    local repo="$1" exit_status=0
     git -C "$repo" pull -q
-    [ "$?" != 0 ] && echo -e "\e[32;1mUpdated:\e[0m $repo\n"
+    exit_status="$?"
+    [ "$exit_status" != 0 ] && echo -e "\e[32;1mUpdated:\e[0m $repo\n"
+    return $exit_status
 }
 
 function update_file() {
@@ -32,10 +34,7 @@ sudo gem update &
 
 # Fuzzy Finder
 update_git_repo "$HOME/.fzf"
-~/.fzf/install
-
-# Font "bront"
-update_git_repo "$HOME/.fonts/bront"
+yes y | ~/.fzf/install >/dev/null
 
 # TMUX Plugin Manager
 for plugin in ~/.tmux/plugins/*; do
