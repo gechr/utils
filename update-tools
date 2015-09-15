@@ -24,6 +24,9 @@ function update_file() {
 # Prompt for sudo password before doing anything
 sudo -v
 
+# Resynchronize the apt package index files from their sources
+sudo apt-get update
+
 # Rubygems
 sudo gem update &
 
@@ -49,8 +52,8 @@ if [ $? -ne 0 ]; then
     make && sudo make install
 fi
 
-# Neovim
-sudo apt-get --only-upgrade -y install neovim &
+# Neovim + fish
+sudo apt-get --only-upgrade -y install neovim fish &
 
 # Shellcheck
 cabal update && cabal install shellcheck
