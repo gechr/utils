@@ -26,4 +26,4 @@ else
 	to="${revisions[0]}"
 fi
 
-git difftool "${options[@]}" $from $to
+git difftool "${options[@]}" "$from" "$to"
