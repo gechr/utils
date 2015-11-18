@@ -1,36 +1,36 @@
-#!/bin/bash
+#!/bin/sh
 
 set -e
 
 # Functions
-function show_usage() {
+show_usage() {
 	printf "\n\033[33m    %s\033[m\n\n" "$(basename "$0") -a <application> -r <release_tag> -m <message>"
 	exit
 }
 
-function info() {
+info() {
 	printf '\033[1;34m==>\033[1;37m %s\033[m\n' "$1"
 }
 
-function fatal() {
+fatal() {
 	printf '\n\033[1;31m  [ERROR]\033[1;37m %s\033[m\n' "$1"
-	[[ -n "$2" ]] && show_usage
+	[ -n "$2" ] && show_usage
 	exit 1
 }
 
-function show_cursor() {
+show_cursor() {
 	printf '\033[?25h'
 }
 
-function hide_cursor() {
+hide_cursor() {
 	printf '\033[?25l'
 }
 
-function clear_line() {
+clear_line() {
 	printf '\033[2K\r'
 }
 
-function countdown() {
+countdown() {
 	local seconds="$1" suffix="s"
 	hide_cursor
 	trap 'show_cursor; exit;' EXIT
@@ -53,7 +53,7 @@ UPDATES_BRANCH=updates
 
 # GitHub Variables
 GITHUB_OAUTH_TOKEN=${GITHUB_OAUTH_TOKEN:-<SET_ME>}
-GITHUB_USERNAME=${GITHUB_USERNAME:gechr}
+GITHUB_USERNAME=${GITHUB_USERNAME:-gechr}
 GITHUB_API_URL=https://api.github.com/repos/$GITHUB_USERNAME
 GITHUB_RELEASE_DELAY=3
 
@@ -81,13 +81,13 @@ while getopts ":h?:a:r:b:m:" opt; do
 done
 
 # Sanity checks
-if [[ "$APPLICATION" = "" ]]; then
+if [ "$APPLICATION" = "" ]; then
 	fatal 'Application name must be specified using `-a` parameter' 1
-elif [[ "$RELEASE_VERSION" = "" ]]; then
+elif [ "$RELEASE_VERSION" = "" ]; then
 	fatal 'Release version must be specified using `-r` parameter' 1
-elif [[ ! "$RELEASE_VERSION" =~ ^([0-9]{1,2}\.){2}[0-9]{1,2}$ ]]; then
+elif ! echo "$RELEASE_VERSION" | grep -qP '^([0-9]{1,2}\.){2}[0-9]{1,2}$'; then
 	fatal "Release version must be in the following format: <major>.<minor>.<patch> (e.g. 0.1.4)" 1
-elif [[ "$RELEASE_MESSAGE" = "" ]]; then
+elif [ "$RELEASE_MESSAGE" = "" ]; then
 	fatal 'Release message must be specified using `-m` parameter' 1
 fi
 
