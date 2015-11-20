@@ -61,7 +61,8 @@ GITHUB_RELEASE_DELAY=3
 while getopts ":h?:a:r:b:m:" opt; do
 	case "$opt" in
 		h)
-			show_usage ;;
+			show_usage
+			;;
 		a)
 			APPLICATION=$OPTARG
 			;;
