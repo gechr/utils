@@ -12,12 +12,10 @@ ICON_INSTALL_DIR="$SUBLIME_USER_DIR/Icons"
 LANG_INSTALL_DIR="$SUBLIME_USER_DIR/Langs"
 GIT_REPO="https://github.com/ctf0/Seti_ST3"
 
-info "Creating temporary directory ($TMPDIR)"
+info "Cloning Git repository into temporary directory"
 TMPDIR=$(mktemp -d)
+git clone --depth=1 "$GIT_REPO" "$TMPDIR"
 cd "$TMPDIR"
-
-info "Cloning Git repository"
-git clone --depth=1 "$GIT_REPO" && cd "${GIT_REPO##*/}"
 
 info "Cleaning up old languages"
 rm -rf -- "$LANG_INSTALL_DIR"
@@ -34,3 +32,6 @@ info "Installing new icons"
 mv "icons/file_type_"* "$ICON_INSTALL_DIR/icons/"
 info "Creating blank '$SUBLIME_THEME' file"
 touch "$ICON_INSTALL_DIR/$SUBLIME_THEME"
+
+info "Cleaning up temporary directory"
+rm -rf -- "$TMPDIR"
