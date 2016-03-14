@@ -4,6 +4,5 @@ use strict;
 use warnings;
 
 while (<>) {
-  s/\e\[?.*?[\@-~]//g;
-  print if /^~/ or not /(".*?") => \1/
+  print $_."\e[0m" if /^(\e\[?.*)?([-+~]) / or not /(".*?") => \1/
 }
