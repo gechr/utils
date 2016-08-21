@@ -1,4 +1,4 @@
 #!/bin/sh
 bold="$(tput bold)" orange="$(tput setaf 214)" normal="$(tput sgr0)"
-find -L . -type d -name '.git' -exec dirname '{}' \; 2>/dev/null | sort | xargs -n1 -P8 -I{} \
+find -L . -type d -name '.git' -exec dirname '{}' \; 2>/dev/null | sort | xargs -n1 -P"${1:-8}" -I{} \
     bash -c "echo -e '${bold}${orange}Updating {}${normal}' >&2 && cd '{}' && git up >&-"
