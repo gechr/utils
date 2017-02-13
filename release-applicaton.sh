@@ -51,6 +51,9 @@ RELEASE_MESSAGE=""
 RELEASE_BRANCH=master
 UPDATES_BRANCH=updates
 
+# Xcode options
+DEVELOPMENT_TEAM=WH3AMFYJQK
+
 # GitHub Variables
 GITHUB_OAUTH_TOKEN=${GITHUB_OAUTH_TOKEN:-<SET_ME>}
 GITHUB_USERNAME=${GITHUB_USERNAME:-gechr}
@@ -119,7 +122,7 @@ git -C "$REPOSITORY" tag -a -m "$RELEASE_MESSAGE" "$RELEASE_TAG"
 
 # Build the .app bundle
 info "Building application '$APPLICATION'"
-xcodebuild -project "$PROJECT" -scheme "$APPLICATION" clean archive -archivePath "$ARCHIVE_PATH"
+xcodebuild -project "$PROJECT" -scheme "$APPLICATION" clean archive -archivePath "$ARCHIVE_PATH" DEVELOPMENT_TEAM=$DEVELOPMENT_TEAM
 
 # Move into a temporary directory
 TMPDIR=$(mktemp -d)
