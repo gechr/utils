@@ -119,7 +119,7 @@ git -C "$REPOSITORY" tag -a -m "$RELEASE_MESSAGE" "$RELEASE_TAG"
 
 # Build the .app bundle
 info "Building application '$APPLICATION'"
-xctool -project "$PROJECT" -scheme "$APPLICATION" clean archive -archivePath "$ARCHIVE_PATH"
+xcodebuild -project "$PROJECT" -scheme "$APPLICATION" clean archive -archivePath "$ARCHIVE_PATH"
 
 # Move into a temporary directory
 TMPDIR=$(mktemp -d)
