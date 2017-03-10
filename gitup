@@ -5,5 +5,5 @@ find -L . -type d -name '.git' 2>/dev/null \
   | sed -e 's@^\./\(.*\)/\.git$@\1@' \
         -e 's@^\./\.git$@.@' \
   | sort -f \
-  | xargs -n1 -P"${1:-10}" -I{} \
+  | xargs -n1 -P"${1:-4}" -I{} \
       bash -c "echo -e '${bold}${orange}Updating ${white}{}${normal}' >&2 && cd '{}' && git up 2>/dev/null"
