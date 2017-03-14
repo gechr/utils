@@ -134,7 +134,7 @@ PACKAGE="$APPLICATION.app"
 PACKAGE_ZIP="$PACKAGE.zip"
 info "Copying $PACKAGE into current directory"
 cp -r "$HOME/Builds/$APPLICATION.xcarchive/Products/Applications/$PACKAGE" .
-zip -r "$PACKAGE_ZIP" "$PACKAGE"
+zip -yr "$PACKAGE_ZIP" "$PACKAGE"
 rm -rf "$PACKAGE"
 
 # Push commit
