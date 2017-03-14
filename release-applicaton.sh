@@ -131,7 +131,7 @@ cd "$TMPDIR"
 
 # Zip the .app bundle
 PACKAGE="$APPLICATION.app"
-PACKAGE_ZIP="$PACKAGE.zip"
+PACKAGE_ZIP="$APPLICATION.zip"
 info "Copying $PACKAGE into current directory"
 cp -r "$HOME/Builds/$APPLICATION.xcarchive/Products/Applications/$PACKAGE" .
 zip -yr "$PACKAGE_ZIP" "$PACKAGE"
@@ -146,7 +146,7 @@ info "Pushing tag"
 git -C "$REPOSITORY" push origin "$RELEASE_TAG"
 
 # Wait for a few seconds for the tag to become available for release
-countdown $GITHUB_RELEASE_DELAY
+countdown "$GITHUB_RELEASE_DELAY"
 
 # Prepare GitHub release
 info "Creating release"
