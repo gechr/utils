@@ -3,7 +3,7 @@
 set -e
 
 info() {
-	printf '\033[1;34m==>\033[1;37m %s\033[m\n' "$1"
+    printf '\033[1;34m==>\033[1;37m %s\033[m\n' "$1"
 }
 
 SUBLIME_THEME="Aprosopo Dark@st3.sublime-theme"

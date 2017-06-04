@@ -4,44 +4,44 @@ set -e
 
 # Functions
 show_usage() {
-	printf "\n\033[33m    %s\033[m\n\n" "$(basename "$0") -a <application> -r <release_tag> -m <message>"
-	exit
+    printf "\n\033[33m    %s\033[m\n\n" "$(basename "$0") -a <application> -r <release_tag> -m <message>"
+    exit
 }
 
 info() {
-	printf '\033[1;34m==>\033[1;37m %s\033[m\n' "$1"
+    printf '\033[1;34m==>\033[1;37m %s\033[m\n' "$1"
 }
 
 fatal() {
-	printf '\n\033[1;31m  [ERROR]\033[1;37m %s\033[m\n' "$1"
-	[ -n "$2" ] && show_usage
-	exit 1
+    printf '\n\033[1;31m  [ERROR]\033[1;37m %s\033[m\n' "$1"
+    [ -n "$2" ] && show_usage
+    exit 1
 }
 
 show_cursor() {
-	printf '\033[?25h'
+    printf '\033[?25h'
 }
 
 hide_cursor() {
-	printf '\033[?25l'
+    printf '\033[?25l'
 }
 
 clear_line() {
-	printf '\033[2K\r'
+    printf '\033[2K\r'
 }
 
 countdown() {
-	local seconds="$1" suffix="s"
-	hide_cursor
-	trap 'show_cursor; exit;' EXIT
-	for i in $(seq "$seconds" -1 1); do
-		[ "$i" = 1 ] && suffix=""
-		printf '\033[1;34m==>\033[1;37m Pausing for %d second%s\033[m' "$i" "$suffix"
-		sleep 1
-		clear_line
-	done
-	show_cursor
-	trap - EXIT
+    local seconds="$1" suffix="s"
+    hide_cursor
+    trap 'show_cursor; exit;' EXIT
+    for i in $(seq "$seconds" -1 1); do
+        [ "$i" = 1 ] && suffix=""
+        printf '\033[1;34m==>\033[1;37m Pausing for %d second%s\033[m' "$i" "$suffix"
+        sleep 1
+        clear_line
+    done
+    show_cursor
+    trap - EXIT
 }
 
 # Default options
@@ -62,37 +62,37 @@ GITHUB_RELEASE_DELAY=3
 
 # Option parsing
 while getopts ":h?:a:r:b:m:" opt; do
-	case "$opt" in
-		h)
-			show_usage
-			;;
-		a)
-			APPLICATION=$OPTARG
-			;;
-		r)
-			RELEASE_VERSION=$OPTARG
-			;;
-		b)
-			RELEASE_BRANCH=$OPTARG
-			;;
-		u)
-			UPDATES_BRANCH=$OPTARG
-			;;
-		m)
-			RELEASE_MESSAGE=$OPTARG
-			;;
-	esac
+    case "$opt" in
+        h)
+            show_usage
+            ;;
+        a)
+            APPLICATION=$OPTARG
+            ;;
+        r)
+            RELEASE_VERSION=$OPTARG
+            ;;
+        b)
+            RELEASE_BRANCH=$OPTARG
+            ;;
+        u)
+            UPDATES_BRANCH=$OPTARG
+            ;;
+        m)
+            RELEASE_MESSAGE=$OPTARG
+            ;;
+    esac
 done
 
 # Sanity checks
 if [ "$APPLICATION" = "" ]; then
-	fatal 'Application name must be specified using `-a` parameter' 1
+    fatal 'Application name must be specified using `-a` parameter' 1
 elif [ "$RELEASE_VERSION" = "" ]; then
-	fatal 'Release version must be specified using `-r` parameter' 1
+    fatal 'Release version must be specified using `-r` parameter' 1
 elif ! echo "$RELEASE_VERSION" | grep -qP '^([0-9]{1,2}\.){2}[0-9]{1,2}$'; then
-	fatal "Release version must be in the following format: <major>.<minor>.<patch> (e.g. 0.1.4)" 1
+    fatal "Release version must be in the following format: <major>.<minor>.<patch> (e.g. 0.1.4)" 1
 elif [ "$RELEASE_MESSAGE" = "" ]; then
-	fatal 'Release message must be specified using `-m` parameter' 1
+    fatal 'Release message must be specified using `-m` parameter' 1
 fi
 
 # Variables
